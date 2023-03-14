@@ -50,6 +50,7 @@ public class AddFragment extends Fragment {
     String EntryName = "Name";
     String EntryMod = "Mod";
     int EntryQuantity = 0;
+    String EntryQuantityS = "Qty";
     String EntryLocation = "Loc";
     
     private final ArrayList<String> mCardNames = new ArrayList<>();
@@ -70,6 +71,7 @@ public class AddFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_add, container, false);
         
         MyMainActivity = (MainActivity) getActivity();
+        assert MyMainActivity != null;
         MyJson = MyMainActivity.MyJSON;
         
         NameAdd = root.findViewById(R.id.NameAdd);
@@ -137,16 +139,16 @@ public class AddFragment extends Fragment {
         });
         
         ListOfEntries = (JSONArray) MyJson.get("data");
-        for (int i = 0; i < ListOfEntries.size(); i++) {
+        for (int i = 0; i < (ListOfEntries != null ? ListOfEntries.size() : 0); i++) {
             DataEntry = (JSONObject) ListOfEntries.get(i);
             EntryName = (String) DataEntry.get("Name");
             EntryMod = (String) DataEntry.get("Mod");
-            EntryQuantity = Integer.parseInt("" + DataEntry.get("Qty"));
+            EntryQuantityS = (String) DataEntry.get("Qty");
             EntryLocation = (String) DataEntry.get("Loc");
             
             mCardNames.add(EntryName);
             mCardMods.add(EntryMod);
-            mCardQuantities.add("" + EntryQuantity);
+            mCardQuantities.add(EntryQuantityS);
             mCardLocations.add(EntryLocation);
         }
         toRecyclerNames.addAll(mCardNames);
@@ -167,16 +169,16 @@ public class AddFragment extends Fragment {
         mCardQuantities.clear();
         mCardLocations.clear();
         ListOfEntries = (JSONArray) MyJson.get("data");
-        for (int i = 0; i < ListOfEntries.size(); i++) {
+        for (int i = 0; i < (ListOfEntries != null ? ListOfEntries.size() : 0); i++) {
             DataEntry = (JSONObject) ListOfEntries.get(i);
             EntryName = (String) DataEntry.get("Name");
             EntryMod = (String) DataEntry.get("Mod");
-            EntryQuantity = Integer.parseInt("" + DataEntry.get("Qty"));
+            EntryQuantityS = (String) DataEntry.get("Qty");
             EntryLocation = (String) DataEntry.get("Loc");
         
             mCardNames.add(EntryName);
             mCardMods.add(EntryMod);
-            mCardQuantities.add("" + EntryQuantity);
+            mCardQuantities.add(EntryQuantityS);
             mCardLocations.add(EntryLocation);
         }
 //        Log.d(TAG, "onContextItemSelected: " + item.getTitle() + " = Delete: " + (item.getTitle() == ("Delete")));
@@ -205,6 +207,7 @@ public class AddFragment extends Fragment {
                 e.printStackTrace();
             }
             try {
+                assert outputStream != null;
                 outputStream.write(MyJson.toString().getBytes());
             } catch (IOException e) {
                 e.printStackTrace();
@@ -238,27 +241,33 @@ public class AddFragment extends Fragment {
         mCardMods.clear();
         mCardQuantities.clear();
         mCardLocations.clear();
-        for (int i = 0; i < ListOfEntries.size(); i++) {
+        for (int i = 0; i < (ListOfEntries != null ? ListOfEntries.size() : 0); i++) {
             DataEntry = (JSONObject) ListOfEntries.get(i);
             EntryName = (String) DataEntry.get("Name");
             EntryMod = (String) DataEntry.get("Mod");
-            EntryQuantity = Integer.parseInt("" + DataEntry.get("Qty"));
+            EntryQuantityS = (String) DataEntry.get("Qty");
             EntryLocation = (String) DataEntry.get("Loc");
         
             mCardNames.add(EntryName);
             mCardMods.add(EntryMod);
-            mCardQuantities.add("" + EntryQuantity);
+            mCardQuantities.add(EntryQuantityS);
             mCardLocations.add(EntryLocation);
         }
-        for (int i = 0; i < ListOfEntries.size(); i++) {
+        for (int i = 0; i < (ListOfEntries != null ? ListOfEntries.size() : 0); i++) {
             DataEntry = (JSONObject) ListOfEntries.get(i);
             EntryName = (String) DataEntry.get("Name");
             EntryMod = (String) DataEntry.get("Mod");
-            EntryQuantity = Integer.parseInt("" + DataEntry.get("Qty"));
+            try {
+                EntryQuantity = Integer.parseInt("" + DataEntry.get("Qty"));
+            } catch (NumberFormatException e) {
+                EntryQuantity = 0;
+            }
             EntryLocation = (String) DataEntry.get("Loc");
             if (EntryName.equals(NameAdd.getText().toString()) && EntryMod.equals(ModAdd.getText().toString())) {
                 Log.d(TAG, "addButton: Inc Qty: " + ListOfEntries.toString());
-                EntryQuantity += Integer.parseInt("" + QuantityAdd.getText());
+                if (!("" + QuantityAdd.getText()).equals("")) {
+                    EntryQuantity += Integer.parseInt("" + QuantityAdd.getText());
+                }
                 DataEntry.put("Qty", "" + EntryQuantity);
                 Log.d(TAG, "addButton: Inc Qty: " + ListOfEntries.toString());
                 found = true;

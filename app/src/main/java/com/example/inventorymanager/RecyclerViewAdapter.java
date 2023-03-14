@@ -138,7 +138,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             Log.d(TAG, "onCreateContextMenu: called");
             menu.setHeaderTitle("Select The Action");
             menu.add(this.getAdapterPosition(), v.getId(), 0, "Delete");//groupId, itemId, order, title
-            menu.add(this.getAdapterPosition(), v.getId(), 0, "Edit (Don't press)");
+            menu.add(this.getAdapterPosition(), v.getId(), 0, "Edit (NYI)");
         }
     }
 }
