@@ -52,25 +52,25 @@ public class AddFragment extends Fragment {
     int EntryQuantity = 0;
     String EntryLocation = "Loc";
     
-    private ArrayList<String> mCardNames = new ArrayList<>();
-    private ArrayList<String> mCardMods = new ArrayList<>();
-    private ArrayList<String> mCardQuantities = new ArrayList<>();
-    private ArrayList<String> mCardLocations = new ArrayList<>();
+    private final ArrayList<String> mCardNames = new ArrayList<>();
+    private final ArrayList<String> mCardMods = new ArrayList<>();
+    private final ArrayList<String> mCardQuantities = new ArrayList<>();
+    private final ArrayList<String> mCardLocations = new ArrayList<>();
     
-    public ArrayList<String> toRecyclerNames = new ArrayList<>();
-    public ArrayList<String> toRecyclerMods = new ArrayList<>();
-    public ArrayList<String> toRecyclerQuantities = new ArrayList<>();
-    public ArrayList<String> toRecyclerLocations = new ArrayList<>();
+    public final ArrayList<String> toRecyclerNames = new ArrayList<>();
+    public final ArrayList<String> toRecyclerMods = new ArrayList<>();
+    public final ArrayList<String> toRecyclerQuantities = new ArrayList<>();
+    public final ArrayList<String> toRecyclerLocations = new ArrayList<>();
     
     public RecyclerViewAdapter adapter;
     
-    FileOutputStream outputStream;
+//    FileOutputStream outputStream;
     
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_add, container, false);
         
         MyMainActivity = (MainActivity) getActivity();
-        MyJson = (JSONObject) MyMainActivity.MyJSON;
+        MyJson = MyMainActivity.MyJSON;
         
         NameAdd = root.findViewById(R.id.NameAdd);
         ModAdd = root.findViewById(R.id.ModAdd);
@@ -85,7 +85,8 @@ public class AddFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
         
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {InstaSearch();}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                InstantSearch();}
         
             @Override
             public void afterTextChanged(Editable s) {}
@@ -95,7 +96,8 @@ public class AddFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
         
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {InstaSearch();}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                InstantSearch();}
         
             @Override
             public void afterTextChanged(Editable s) {}
@@ -105,7 +107,8 @@ public class AddFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
         
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {InstaSearch();}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                InstantSearch();}
         
             @Override
             public void afterTextChanged(Editable s) {}
@@ -115,7 +118,8 @@ public class AddFragment extends Fragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
         
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {InstaSearch();}
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                InstantSearch();}
         
             @Override
             public void afterTextChanged(Editable s) {}
@@ -275,9 +279,9 @@ public class AddFragment extends Fragment {
             }
         }
         if (!found) {
-            Log.d(TAG, "addButton: Inc LoE: " + ListOfEntries.toString());
+            Log.d(TAG, "addButton: Inc LoE: " + ListOfEntries);
             Log.d(TAG, "addButton: With " +                     "{\"Name\":\"" + NameAdd.getText().toString() + "\",\"Mod\":\"" + ModAdd.getText().toString() + "\",\"Qty\":\"" + QuantityAdd.getText().toString() + "\",\"Loc\":\"" + LocationAdd.getText().toString() + "\",}");
-            ListOfEntries.add((JSONObject) new JSONParser().parse("{\"Name\":\"" + NameAdd.getText().toString() + "\",\"Mod\":\"" + ModAdd.getText().toString() + "\",\"Qty\":\"" + QuantityAdd.getText().toString() + "\",\"Loc\":\"" + LocationAdd.getText().toString() + "\",}"));
+            ListOfEntries.add(new JSONParser().parse("{\"Name\":\"" + NameAdd.getText().toString() + "\",\"Mod\":\"" + ModAdd.getText().toString() + "\",\"Qty\":\"" + QuantityAdd.getText().toString() + "\",\"Loc\":\"" + LocationAdd.getText().toString() + "\",}"));
             Log.d(TAG, "addButton: Inc LoE: " + ListOfEntries.toString());
             toRecyclerNames.add(NameAdd.getText().toString());
             toRecyclerMods.add(ModAdd.getText().toString());
@@ -294,7 +298,7 @@ public class AddFragment extends Fragment {
         outputStream.close();
         adapter.notifyDataSetChanged();
     }
-    public void InstaSearch() {
+    public void InstantSearch() {
         if ((NameAdd.getText().length() != 0) || (ModAdd.getText().length() != 0)) {
             toRecyclerNames.clear();
             toRecyclerMods.clear();
