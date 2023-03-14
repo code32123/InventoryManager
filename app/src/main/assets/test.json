@@ -1,0 +1,35 @@
+{"data":
+[
+  {
+    "Name": "Resistors",
+    "Qty": "3",
+    "Loc": "#21A",
+    "Mod": "220kΩ"
+  }, {
+    "Name": "Resistors",
+    "Qty": "2",
+    "Loc": "#21B",
+    "Mod": "10kΩ"
+  }, {
+    "Name": "LED",
+    "Qty": "10",
+    "Loc": "#13C",
+    "Mod": "green"
+  }, {
+    "Name": "Stepper",
+    "Qty": "3",
+    "Loc": "#32",
+    "Mod": ""
+  }, {
+    "Name": "Stepper Driver",
+    "Qty": "3",
+    "Loc": "#32",
+    "Mod": "ULN2003"
+  }, {
+    "Name": "Capacitor",
+    "Qty": "2",
+    "Loc": "#11",
+    "Mod": "20mf"
+    }
+]
+}
